@@ -3,7 +3,7 @@
 This is a template for the test.
 
 > [!TIP]
-> Clone this repository before starting. 
+> Fork this repository before starting. 
 
 ## Instructions
 
