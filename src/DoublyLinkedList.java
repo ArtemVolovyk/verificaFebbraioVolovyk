@@ -54,26 +54,5 @@ public class DoublyLinkedList {
         return 0;
     }
 
-    public void merge(DoublyLinkedList otherList) {
 
-    }
-
-    public String slice(int start, int end) {
-
-        return null;
-    }
-
-    // I'm recursive!
-    public boolean palindrome() {
-
-        return false;
-    }
-
-    public void shift(int amount) {
-
-    }
-
-    public void trim(int newSize) {
-
-    }
 }
