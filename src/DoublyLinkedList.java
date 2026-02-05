@@ -79,20 +79,42 @@ public class DoublyLinkedList {
     }
 
 
-    // if cuurent empty then becomes newList 
-    public void attach(DoublyLinkedList newList){
-        if ( newList == null || newList.head == null) return;
+    // if cuurent empty then becomes otherList 
+    public void attach(DoublyLinkedList otherList){
+
+        if ( otherList == null || otherList.head == null) return;
 
         if (this.head == null){
-            this.head = newList.head;
-            this.tail = newList.tail;
+            this.head = otherList.head;
+            this.tail = otherList.tail;
+
+            otherList.head = null;
+            otherList.tail = null;
             return;
         }
 
-        newList.tail.setNext(this.head);
-        this.head.setPrev(newList.tail);
+        otherList.tail.setNext(this.head);
+        this.head.setPrev(otherList.tail);
 
-        this.head = newList.head;
+        this.head = otherList.head;
+
+        otherList.head = null;
+        otherList.tail = null;
+
+
+        //if ( otherList == null || otherList.head == null) return;
+//
+        //if (this.head == null){
+        //    this.head = otherList.head;
+        //    this.tail = otherList.tail;
+//
+        //    return;
+        //}
+//
+        //otherList.tail.setNext(this.head);
+        //this.head.setPrev(otherList.tail);
+//
+        //this.head = otherList.head;
     }
 
     public String slice (int start, int end){
@@ -102,6 +124,10 @@ public class DoublyLinkedList {
         if (start < n) start = n;
         if (end < 0) end = 0;
         if (end > n) end = n;
+
+        //if (start < 0 || start >= n || end < 0 || >= n){
+          //  throw new IndexOutOfBoundsException("invalid index");
+        //}
 
         if ( start== end ) return "";
 
@@ -154,7 +180,59 @@ public class DoublyLinkedList {
     }
 
     public void mirror(int index){
-        
+        if ( head == null ) return;
+        if ( index < 0 || index >= size()) return;
+
+        Node pivot = get(index);
+
+        Node afterPivot = pivot.getNext();
+        pivot.setNext(null);
+        tail = pivot;
+
+        if ( afterPivot != null ){
+            afterPivot.setPrev(null);
+        }
+
+        Node cur = pivot.getPrev();
+        while (cur != null ) {
+            add(new Node(cur.getLetter()));
+            cur = cur.getPrev();
+        }
+    }
+
+    public void extract(char c){
+        if ( head == null ) return;
+
+        Node first = null;
+        Node last = null;
+
+        Node cur = head;
+        while ( cur != null){
+            if ( cur.getLetter() == c){
+                if ( first == null ) first = cur;
+                last = cur;
+            }
+            cur = cur.getNext();
+        }
+
+        if ( first == null || first == last ) return;
+
+        // left side
+        Node left = first.getPrev();
+        if (left != null){
+            left.setNext(null);
+        }
+        first.setPrev(null);
+
+        // right side 
+        Node right = first.getNext();
+        if (right != null){
+            right.setPrev(null);
+        }
+        first.setNext(null);
+
+        head = first;
+        tail = last;
     }
 
 
